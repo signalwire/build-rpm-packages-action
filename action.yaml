@@ -1,0 +1,15 @@
+# action.yml
+name: 'Build RPM Packages'
+description: 'Build RPM packages actions'
+inputs:
+  project_name: 
+    description: 'Default Project Name'
+    required: true
+    default: 'default'
+  packager: 
+    description: 'Default Package signer'
+    required: true
+    default: 'default'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
