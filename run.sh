@@ -16,6 +16,6 @@ cd rpmbuild
 sed -i "s/Release:        1%{?dist}/Release:        $GITHUB_RUN_ID.$GITHUB_SHA/g" SPECS/$INPUT_PROJECT_NAME.spec
 cat SPECS/$INPUT_PROJECT_NAME.spec
 rpmbuild -ba SPECS/$INPUT_PROJECT_NAME.spec
-mv RPMS/x86_64/*.rpm /export
-mv SRPMS/*.rpm /export
+mv RPMS/x86_64/*.rpm /data
+mv SRPMS/*.rpm /data
 ls -la
