@@ -1,10 +1,10 @@
 #!/bin/bash
 pwd
 ls -l
+echo -e "%${INPUT_PACKAGER}\n\n%_topdir /data/rpmbuild\n" > ~/.rpmmacros
 rpmdev-setuptree
 VERSION=`rpm -q --qf "%{VERSION}\n" --specfile $INPUT_PROJECT_NAME.spec | head -1`
 
-echo -e "%${INPUT_PACKAGER}\n\n%_topdir /data/rpmbuild\n" > /root/.rpmmacros
 HASH=`echo $REVISION | cut -c1-10`
 echo $VERSION
 mkdir -p $INPUT_PROJECT_NAME-$VERSION
