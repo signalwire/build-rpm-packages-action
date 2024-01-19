@@ -11,4 +11,4 @@ RUN yum install -y zlib-devel cmake gcc-c++ libcurl-devel krb5-dxevel multilib-r
 COPY run.sh run.sh
 RUN chmod 755 run.sh
 RUN dos2unix run.sh
-CMD ["sh", "run.sh"]
+CMD ["sh", "/data/run.sh"]
