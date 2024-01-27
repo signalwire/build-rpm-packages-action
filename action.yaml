@@ -10,6 +10,22 @@ inputs:
     description: 'Default Package signer'
     required: true
     default: 'default'
+  use_cmake:
+    required: false
+    default: 'false'
+    description: 'Use CMAKE for building'
+  cmake_build_type:
+    required: false
+    default: 'Release'
+    description: 'Set СMAKE_BUILD_TYPE variable'
+  cmake_install_prefix:
+    required: false
+    default: '/usr'
+    description: 'Set CMAKE_INSTALL_PREFIX variable'
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  env:
+    USE_CMAKE: ${{ inputs.use_cmake }}
+    CMAKE_BUILD_TYPE: ${{ inputs.cmake_build_type }}
+    CMAKE_INSTALL_PREFIX: ${{ inputs.cmake_install_prefix }}
