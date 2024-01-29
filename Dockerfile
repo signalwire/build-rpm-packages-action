@@ -3,12 +3,64 @@ FROM --platform=linux/amd64 centos:7.2.1511
 RUN mkdir /data
 WORKDIR /data
 
-RUN yum install -y wget dos2unix wget epel-release
+RUN yum update -y
+RUN yum install -y \
+          autoconf \
+          automake \
+          bind-license \
+          cmake \
+          cyrus-sasl-lib \
+          dbus \
+          dbus-libs \
+          dos2unix \
+          dpkg-dev \
+          dracut \
+          epel-release \
+          expat \
+          gcc \
+          gcc-c++ \
+          git \
+          glib2 \
+          glib2-devel \
+          gnupg2 \
+          gzip \
+          krb5-dxevel \
+          libatomic \
+          libcurl-devel \
+          libtool \
+          libuuid-devel \
+          libxml2 \
+          lksctp-tools-devel \
+          lsb_release \
+          make \
+          multilib-rpm-config \
+          openssl-devel \
+          pkg-config \
+          procps-ng \
+          python \
+          python-libs \
+          rpm-build \
+          rpmdevtools \
+          sqlite \
+          unzip \
+          uuid-devel \
+          vim-minimal \
+          wget \
+          xz \
+          xz-libs \
+          yum-plugin-fastestmirror \
+          zlib-devel
 
-RUN yum install -y zlib-devel cmake gcc-c++ libcurl-devel krb5-dxevel multilib-rpm-config openssl-devel make rpm-build rpmdevtools libtool autoconf automake gzip lksctp-tools-devel glib2-devel bind-license sqlite \
-  cyrus-sasl-lib dbus dbus-libs dracut expat glib2 glib2-devel gnupg2 libxml2 procps-ng python python-libs vim-minimal xz xz-libs yum-plugin-fastestmirror
+ENV CMAKE_VERSION 3.22.2
+
+RUN set -ex \
+  && curl -kfsSLO --compressed https://cmake.org/files/v3.22/cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz \
+  && curl -kfsSLO --compressed https://cmake.org/files/v3.22/cmake-${CMAKE_VERSION}-SHA-256.txt \
+  && grep "cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz\$" cmake-${CMAKE_VERSION}-SHA-256.txt | sha256sum -c - \
+  && tar xzf cmake-${CMAKE_VERSION}-linux-x86_64.tar.gz -C /usr/local --strip-components=1 --no-same-owner \
+  && rm -rf cmake-${CMAKE_VERSION}* \
+  && cmake --version
 
 COPY run.sh run.sh
-RUN chmod 755 run.sh
-RUN dos2unix run.sh
+RUN chmod 755 run.sh && dos2unix run.sh
 CMD ["sh", "/data/run.sh"]
