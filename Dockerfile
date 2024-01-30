@@ -5,6 +5,7 @@ WORKDIR /data
 
 RUN yum update -y
 RUN yum install -y \
+          audiofile-devel \
           autoconf \
           automake \
           bind-license \
@@ -13,6 +14,7 @@ RUN yum install -y \
           dbus \
           dbus-libs \
           dos2unix \
+          doxygen \
           dpkg-dev \
           dracut \
           epel-release \
@@ -46,6 +48,7 @@ RUN yum install -y \
           uuid-devel \
           vim-minimal \
           wget \
+          which \
           xz \
           xz-libs \
           yum-plugin-fastestmirror \
