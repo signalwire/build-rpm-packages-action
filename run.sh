@@ -16,6 +16,11 @@ printenv
 if [ "$USE_CMAKE" = "true" ]; then
 	echo "Running: PACKAGE_RELEASE=$GITHUB_RUN_ID.$HASH cmake . -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE -DCMAKE_INSTALL_PREFIX=$CMAKE_INSTALL_PREFIX"
 
+	if [ ! -f "CMakeLists.txt" ]; then
+		echo "Error: CMakeLists.txt not found in the current working directory."
+		exit 1
+	fi
+
 	PACKAGE_RELEASE="$GITHUB_RUN_ID.$HASH" cmake . -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE -DCMAKE_INSTALL_PREFIX=$CMAKE_INSTALL_PREFIX && make package
 else
 	echo -e "%${INPUT_PACKAGER}\n\n%_topdir /data/rpmbuild\n" > ~/.rpmmacros
