@@ -35,7 +35,8 @@ else
 	mv -v $INPUT_PROJECT_NAME-$VERSION.tar.gz /data/rpmbuild/SOURCES/
 	cp -v $INPUT_PROJECT_NAME-$VERSION/$INPUT_PROJECT_NAME.spec /data/rpmbuild/SPECS/
 
-	sed -i "s/Release:        1%{?dist}/Release:        $GITHUB_RUN_ID.$HASH/g" /data/rpmbuild/SPECS/$INPUT_PROJECT_NAME.spec
+	# Replace `Release` value in *.spec while keeping original formatting with consideration of dynamic spaces count.
+	sed -i "s/\(Release:\)\([[:space:]]*\)1%{?dist}/\1\2$GITHUB_RUN_ID.$HASH/" /data/rpmbuild/SPECS/$INPUT_PROJECT_NAME.spec
 	cat /data/rpmbuild/SPECS/$INPUT_PROJECT_NAME.spec
 
 	rpmbuild -ba /data/rpmbuild/SPECS/$INPUT_PROJECT_NAME.spec
