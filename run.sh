@@ -14,13 +14,13 @@ echo "Environment variables:"
 printenv | grep -v "SIGNALWIRE_TOKEN"
 
 if [[ -n "${SIGNALWIRE_USERNAME}" && -n "${SIGNALWIRE_TOKEN}" ]]; then
-	echo "machine freeswitch.signalwire.com login ${SIGNALWIRE_USERNAME} password ${SIGNALWIRE_TOKEN}" > /root/.netrc
+	printf "machine freeswitch.signalwire.com login ${SIGNALWIRE_USERNAME} password ${SIGNALWIRE_TOKEN}" > ~/.netrc
 	echo "${SIGNALWIRE_USERNAME}" > /etc/yum/vars/signalwireusername
 	echo "${SIGNALWIRE_TOKEN}" > /etc/yum/vars/signalwiretoken
 
-	wget -O /tmp/repo.noarch.rpm https://freeswitch.signalwire.com/repo/yum/centos-release/freeswitch-release-repo-0-1.noarch.rpm && \
-		yum localinstall -y /tmp/repo.noarch.rpm && \
-			rm -f /tmp/repo.noarch.rpm
+	wget --auth-no-challenge -O ~/repo.noarch.rpm https://freeswitch.signalwire.com/repo/yum/centos-release/freeswitch-release-repo-0-1.noarch.rpm && \
+		yum localinstall -y ~/repo.noarch.rpm && \
+			rm -f ~/repo.noarch.rpm
 fi
 
 if [[ -n "${ADDITIONAL_PACKAGES}" ]]; then
