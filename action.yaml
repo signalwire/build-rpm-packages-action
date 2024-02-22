@@ -22,6 +22,19 @@ inputs:
     required: false
     default: '/usr'
     description: 'Set CMAKE_INSTALL_PREFIX variable'
+  additional_packages:
+    required: false
+    default: ''
+    description: 'Additional packages to install (space delimited)'
+  signalwire_username:
+    required: false
+    default: ''
+    description: 'Username for `freeswitch.signalwire.com`'
+  signalwire_token:
+    required: false
+    default: ''
+    description: 'Password for `freeswitch.signalwire.com`'
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -29,3 +42,6 @@ runs:
     USE_CMAKE: ${{ inputs.use_cmake }}
     CMAKE_BUILD_TYPE: ${{ inputs.cmake_build_type }}
     CMAKE_INSTALL_PREFIX: ${{ inputs.cmake_install_prefix }}
+    ADDITIONAL_PACKAGES: ${{ inputs.additional_packages }}
+    SIGNALWIRE_USERNAME: ${{ inputs.signalwire_username }}
+    SIGNALWIRE_TOKEN: ${{ inputs.signalwire_token }}
